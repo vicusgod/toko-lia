@@ -17,9 +17,7 @@ export default async function TransactionsPage() {
         <div className="space-y-6">
             <div>
                 <h2 className="text-2xl font-bold tracking-tight">Riwayat Transaksi</h2>
-                <p className="text-muted-foreground">
-                    Daftar 50 transaksi terakhir.
-                </p>
+
             </div>
 
             <div className="rounded-md border">
