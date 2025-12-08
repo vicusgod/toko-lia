@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Loader2, Plus, Pencil } from "lucide-react"
+import { Loader2, Plus } from "lucide-react"
 import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
@@ -73,7 +73,7 @@ export function CategoryDialog({ category, trigger }: CategoryDialogProps) {
                     form.reset()
                 }
             }
-        } catch (error) {
+        } catch {
             toast.error("Terjadi kesalahan")
         }
     }

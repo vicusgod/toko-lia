@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { MoveRight, PhoneCall } from 'lucide-react'
+import { MoveRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
@@ -47,13 +47,13 @@ function Hero() {
                     animate={
                       titleNumber === index
                         ? {
-                            y: 0,
-                            opacity: 1,
-                          }
+                          y: 0,
+                          opacity: 1,
+                        }
                         : {
-                            y: titleNumber > index ? -150 : 150,
-                            opacity: 0,
-                          }
+                          y: titleNumber > index ? -150 : 150,
+                          opacity: 0,
+                        }
                     }
                   >
                     {title}

@@ -5,9 +5,7 @@ import { revalidatePath } from "next/cache"
 import { generateNextId } from "@/lib/utils/id-generator"
 import { z } from "zod"
 
-const CategorySchema = z.object({
-    namaKategori: z.string().min(1, "Nama kategori wajib diisi"),
-})
+import { CategorySchema } from "@/lib/schemas"
 
 export async function getCategories() {
     const supabase = await createClerkSupabaseClientSsr()

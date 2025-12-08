@@ -5,11 +5,7 @@ import { revalidatePath } from "next/cache"
 import { generateNextId } from "@/lib/utils/id-generator"
 import { z } from "zod"
 
-const SupplierSchema = z.object({
-    namaSupplier: z.string().min(1, "Nama supplier wajib diisi"),
-    alamat: z.string().min(1, "Alamat wajib diisi"),
-    telephone: z.array(z.string().min(1, "Nomor telepon wajib diisi")).min(1, "Minimal satu nomor telepon wajib diisi"),
-})
+import { SupplierSchema } from "@/lib/schemas"
 
 export async function getSuppliers() {
     const supabase = await createClerkSupabaseClientSsr()
@@ -23,8 +19,10 @@ export async function getSuppliers() {
         return []
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return data.map((supplier: any) => ({
         ...supplier,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         telephone: supplier.SupplierTelepon?.map((t: any) => t.telephone) || [],
     }))
 }

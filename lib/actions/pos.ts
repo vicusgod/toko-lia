@@ -5,13 +5,7 @@ import { revalidatePath } from "next/cache"
 import { generateNextId } from "@/lib/utils/id-generator"
 import { z } from "zod"
 
-const TransactionSchema = z.object({
-    items: z.array(z.object({
-        idProduk: z.string().min(1, "Produk wajib dipilih"),
-        jumlah: z.coerce.number().min(1, "Jumlah minimal 1"),
-    })).min(1, "Keranjang kosong"),
-    metodePembayaran: z.enum(["Tunai", "Transfer", "QRIS"]),
-})
+import { TransactionSchema } from "@/lib/schemas"
 
 export async function createTransaction(formData: z.infer<typeof TransactionSchema>) {
     const supabase = await createClerkSupabaseClientSsr()

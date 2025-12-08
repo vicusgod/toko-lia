@@ -113,7 +113,7 @@ export function POSClient({ products }: POSClientProps) {
                 setPaymentMethod("Tunai")
                 setIsCartOpen(false)
             }
-        } catch (error) {
+        } catch {
             toast.error("Terjadi kesalahan")
         } finally {
             setIsSubmitting(false)
@@ -168,6 +168,7 @@ export function POSClient({ products }: POSClientProps) {
                 </div>
                 <div className="space-y-2">
                     <label className="text-sm font-medium">Metode Pembayaran</label>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     <Select value={paymentMethod} onValueChange={(v: any) => setPaymentMethod(v)}>
                         <SelectTrigger>
                             <SelectValue />

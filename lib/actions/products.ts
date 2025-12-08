@@ -5,13 +5,7 @@ import { revalidatePath } from "next/cache"
 import { generateNextId } from "@/lib/utils/id-generator"
 import { z } from "zod"
 
-const ProductSchema = z.object({
-    idKategori: z.string().min(1, "Kategori wajib dipilih"),
-    namaProduk: z.string().min(1, "Nama produk wajib diisi"),
-    merk: z.string().min(1, "Merk wajib diisi"),
-    stok: z.coerce.number().min(0, "Stok tidak boleh negatif"),
-    hargaSatuan: z.coerce.number().min(0, "Harga tidak boleh negatif"),
-})
+import { ProductSchema } from "@/lib/schemas"
 
 export async function getProducts() {
     const supabase = await createClerkSupabaseClientSsr()

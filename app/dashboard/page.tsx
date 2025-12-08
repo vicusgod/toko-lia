@@ -38,6 +38,7 @@ export default async function DashboardPage() {
                             <div className="text-sm text-muted-foreground">Semua stok aman.</div>
                         ) : (
                             <div className="space-y-4">
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                                 {stats.lowStock.map((item: any) => (
                                     <div key={item.idProduk} className="flex items-center justify-between border-b pb-2 last:border-0">
                                         <div className="flex items-center gap-2">

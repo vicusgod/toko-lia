@@ -41,15 +41,17 @@ export default async function TransactionsPage() {
                                 </TableCell>
                             </TableRow>
                         ) : (
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             transactions.map((t: any) => (
                                 <TableRow key={t.idTransaksi}>
                                     <TableCell className="font-medium">{t.idTransaksi}</TableCell>
                                     <TableCell>{format(new Date(t.tanggalTransaksi), "dd/MM/yyyy HH:mm")}</TableCell>
                                     <TableCell>
                                         <div className="text-sm">
-                                            {t.DetailPenjualan.map((d: any, i: number) => (
-                                                <div key={i}>
-                                                    {d.Produk.namaProduk} x{d.jumlah}
+                                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                            {t.DetailPenjualan.map((detail: any, idx: number) => (
+                                                <div key={idx} className="text-sm">
+                                                    {detail.Produk.namaProduk} x {detail.jumlah}
                                                 </div>
                                             ))}
                                         </div>

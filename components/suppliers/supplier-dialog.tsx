@@ -95,7 +95,7 @@ export function SupplierDialog({ supplier, trigger }: SupplierDialogProps) {
                     })
                 }
             }
-        } catch (error) {
+        } catch {
             toast.error("Terjadi kesalahan")
         }
     }

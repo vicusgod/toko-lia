@@ -14,7 +14,7 @@ export async function generateNextId(table: string, idColumn: string, prefix: st
         return `${prefix}001`
     }
 
-    // @ts-ignore
+    // @ts-expect-error - dynamic column access
     const lastId = data[idColumn] as string
     const numberPart = parseInt(lastId.replace(prefix, ""), 10)
 

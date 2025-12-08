@@ -98,7 +98,7 @@ export function ProductDialog({ product, categories, trigger }: ProductDialogPro
                     form.reset()
                 }
             }
-        } catch (error) {
+        } catch {
             toast.error("Terjadi kesalahan")
         }
     }
