@@ -1,6 +1,7 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Package, ArrowRight, ShieldCheck } from "lucide-react"
+import { ArrowRight, ShieldCheck } from "lucide-react"
 
 export default function Home() {
   return (
@@ -14,8 +15,16 @@ export default function Home() {
       <div className="w-full max-w-md px-4 relative z-10">
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-blue-600 shadow-lg shadow-primary/20 mb-6">
-            <Package className="h-8 w-8 text-white" />
+          <div className="inline-flex items-center justify-center mb-6">
+            <div className="relative w-32 h-32 md:w-40 md:h-40">
+              <Image
+                src="/logo.jpg"
+                alt="Toko LIA Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Toko LIA</h1>
           <p className="text-slate-400">Internal Management System</p>
