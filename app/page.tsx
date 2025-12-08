@@ -69,7 +69,7 @@ export default function Home() {
         {/* Footer */}
         <div className="mt-8 text-center">
           <p className="text-xs text-slate-600">
-            &copy; 2024 Toko LIA. v1.0.0
+            &copy; 2025 Toko LIA. v1.0.0
           </p>
         </div>
       </div>
