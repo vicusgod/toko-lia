@@ -67,3 +67,6 @@ Sistem menggunakan Role-Based Access Control:
 ## Lisensi
 
 Internal Use Only - Toko LIA.
+git remote add origin https://github.com/vicusgod/toko-lia.git
+git branch -M main
+git push -u origin main
