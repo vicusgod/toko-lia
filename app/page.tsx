@@ -27,7 +27,7 @@ export default function Home() {
             </div>
           </div>
 
-          <p className="text-slate-400">Internal Management System</p>
+
         </div>
 
         {/* Login Card */}
