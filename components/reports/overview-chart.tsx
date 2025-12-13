@@ -12,7 +12,7 @@ export function OverviewChart({ data }: { data: any[] }) {
             </CardHeader>
             <CardContent className="pl-2">
                 <ResponsiveContainer width="100%" height={350}>
-                    <LineChart data={data}>
+                    <LineChart data={data} margin={{ top: 5, right: 10, left: 30, bottom: 0 }}>
                         <XAxis
                             dataKey="date"
                             stroke="#888888"

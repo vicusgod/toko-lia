@@ -2,6 +2,7 @@
 
 
 import { useForm, useFieldArray } from "react-hook-form"
+import { useState, useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Loader2, Plus, Trash2 } from "lucide-react"
@@ -39,7 +40,7 @@ const formSchema = z.object({
 
 interface RestockFormProps {
     suppliers: { idSupplier: string, namaSupplier: string }[]
-    products: { idProduk: string, namaProduk: string, merk: string }[]
+    products: { idProduk: string, namaProduk: string, merk: string, idSupplier?: string | null }[]
 }
 
 export function RestockForm({ suppliers, products }: RestockFormProps) {
@@ -51,6 +52,40 @@ export function RestockForm({ suppliers, products }: RestockFormProps) {
             items: [{ idProduk: "", jumlah: 1 }],
         },
     })
+
+    const [filteredProducts, setFilteredProducts] = useState(products)
+
+    // Watch supplier selection
+    const selectedSupplierId = form.watch("idSupplier")
+
+    // Filter products when supplier changes
+    useEffect(() => {
+        if (!selectedSupplierId) {
+            setFilteredProducts(products)
+            return
+        }
+
+        // Filter logic: match idSupplier
+        const filtered = products.filter(p => p.idSupplier === selectedSupplierId)
+        setFilteredProducts(filtered)
+    }, [selectedSupplierId, products])
+
+    const handleProductSelect = (idProduct: string, onChange: (value: string) => void) => {
+        onChange(idProduct)
+
+        // Find the selected product
+        const product = products.find(p => p.idProduk === idProduct)
+
+        // If product has a supplier and no supplier is currently selected (or different), auto-select it
+        if (product?.idSupplier) {
+            // Only auto-select if current supplier is empty or different
+            // Actually, if it's different, it implies a conflict if we enforce "one supplier per invoice".
+            // But for "auto-select", we just set it.
+            if (selectedSupplierId !== product.idSupplier) {
+                form.setValue("idSupplier", product.idSupplier)
+            }
+        }
+    }
 
     const { fields, append, remove } = useFieldArray({
         control: form.control,
@@ -141,14 +176,17 @@ export function RestockForm({ suppliers, products }: RestockFormProps) {
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <FormLabel className={index !== 0 ? "sr-only" : ""}>Produk</FormLabel>
-                                            <Select onValueChange={field.onChange} value={field.value}>
+                                            <Select
+                                                onValueChange={(val) => handleProductSelect(val, field.onChange)}
+                                                value={field.value}
+                                            >
                                                 <FormControl>
                                                     <SelectTrigger>
                                                         <SelectValue placeholder="Pilih produk" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent>
-                                                    {products.map((p) => (
+                                                    {filteredProducts.map((p) => (
                                                         <SelectItem key={p.idProduk} value={p.idProduk}>
                                                             {p.namaProduk} ({p.merk})
                                                         </SelectItem>

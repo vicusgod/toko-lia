@@ -37,6 +37,7 @@ import { createProduct, updateProduct } from "@/lib/actions/products"
 
 const formSchema = z.object({
     idKategori: z.string().min(1, "Kategori wajib dipilih"),
+    idSupplier: z.string().optional(),
     namaProduk: z.string().min(1, "Nama produk wajib diisi"),
     merk: z.string().min(1, "Merk wajib diisi"),
     stok: z.coerce.number().min(0, "Stok tidak boleh negatif"),
@@ -48,20 +49,27 @@ interface Category {
     namaKategori: string
 }
 
+interface Supplier {
+    idSupplier: string
+    namaSupplier: string
+}
+
 interface ProductDialogProps {
     product?: {
         idProduk: string
         idKategori: string
+        idSupplier?: string | null
         namaProduk: string
         merk: string
         stok: number
         hargaSatuan: number
     }
     categories: Category[]
+    suppliers: Supplier[]
     trigger?: React.ReactNode
 }
 
-export function ProductDialog({ product, categories, trigger }: ProductDialogProps) {
+export function ProductDialog({ product, categories, suppliers, trigger }: ProductDialogProps) {
     const [open, setOpen] = useState(false)
     const isEditing = !!product
 
@@ -69,6 +77,7 @@ export function ProductDialog({ product, categories, trigger }: ProductDialogPro
         resolver: zodResolver(formSchema),
         defaultValues: {
             idKategori: product?.idKategori || "",
+            idSupplier: product?.idSupplier || "",
             namaProduk: product?.namaProduk || "",
             merk: product?.merk || "",
             stok: product?.stok || 0,
@@ -139,6 +148,30 @@ export function ProductDialog({ product, categories, trigger }: ProductDialogPro
                                             {categories.map((category) => (
                                                 <SelectItem key={category.idKategori} value={category.idKategori}>
                                                     {category.namaKategori}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="idSupplier"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Supplier</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value || undefined}>
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Pilih supplier (Opsional)" />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {suppliers.map((supplier) => (
+                                                <SelectItem key={supplier.idSupplier} value={supplier.idSupplier}>
+                                                    {supplier.namaSupplier}
                                                 </SelectItem>
                                             ))}
                                         </SelectContent>

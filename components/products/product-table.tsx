@@ -29,6 +29,7 @@ import {
 interface Product {
     idProduk: string
     idKategori: string
+    idSupplier?: string | null
     namaProduk: string
     merk: string
     stok: number
@@ -43,12 +44,18 @@ interface Category {
     namaKategori: string
 }
 
+interface Supplier {
+    idSupplier: string
+    namaSupplier: string
+}
+
 interface ProductTableProps {
     data: Product[]
     categories: Category[]
+    suppliers: Supplier[]
 }
 
-export function ProductTable({ data, categories }: ProductTableProps) {
+export function ProductTable({ data, categories, suppliers }: ProductTableProps) {
     const [deletingId, setDeletingId] = useState<string | null>(null)
 
     async function handleDelete(id: string) {
@@ -101,6 +108,7 @@ export function ProductTable({ data, categories }: ProductTableProps) {
                                     <ProductDialog
                                         product={product}
                                         categories={categories}
+                                        suppliers={suppliers}
                                         trigger={
                                             <Button variant="ghost" size="icon">
                                                 <Pencil className="h-4 w-4" />

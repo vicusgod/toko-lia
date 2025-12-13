@@ -11,6 +11,7 @@ export const PurchaseSchema = z.object({
 
 export const ProductSchema = z.object({
     idKategori: z.string().min(1, "Kategori wajib dipilih"),
+    idSupplier: z.string().optional(),
     namaProduk: z.string().min(1, "Nama produk wajib diisi"),
     merk: z.string().min(1, "Merk wajib diisi"),
     stok: z.coerce.number().min(0, "Stok tidak boleh negatif"),

@@ -7,12 +7,19 @@ import { z } from "zod"
 
 import { ProductSchema } from "@/lib/schemas"
 
-export async function getProducts() {
+// Updated getProducts to accept optional supplier filter
+export async function getProducts(supplierId?: string) {
     const supabase = await createClerkSupabaseClientSsr()
-    const { data, error } = await supabase
+    let query = supabase
         .from("Produk")
         .select(`*, KategoriProduk (namaKategori)`)
         .order("idProduk")
+
+    if (supplierId) {
+        query = query.eq("idSupplier", supplierId)
+    }
+
+    const { data, error } = await query
 
     if (error) {
         console.error("Error fetching products:", error)
@@ -29,6 +36,7 @@ export async function createProduct(formData: z.infer<typeof ProductSchema>) {
     const { error } = await supabase.from("Produk").insert({
         idProduk,
         idKategori: formData.idKategori,
+        idSupplier: formData.idSupplier || null,
         namaProduk: formData.namaProduk,
         merk: formData.merk,
         stok: formData.stok,
@@ -50,6 +58,7 @@ export async function updateProduct(idProduk: string, formData: z.infer<typeof P
         .from("Produk")
         .update({
             idKategori: formData.idKategori,
+            idSupplier: formData.idSupplier || null,
             namaProduk: formData.namaProduk,
             merk: formData.merk,
             stok: formData.stok,

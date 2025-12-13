@@ -1,11 +1,13 @@
 import { getProducts } from "@/lib/actions/products"
 import { getCategories } from "@/lib/actions/categories"
+import { getSuppliers } from "@/lib/actions/suppliers"
 import { ProductTable } from "@/components/products/product-table"
 import { ProductDialog } from "@/components/products/product-dialog"
 
 export default async function ProductsPage() {
     const products = await getProducts()
     const categories = await getCategories()
+    const suppliers = await getSuppliers()
 
     return (
         <div className="space-y-6">
@@ -16,9 +18,9 @@ export default async function ProductsPage() {
                         Kelola inventaris produk toko anda.
                     </p>
                 </div>
-                <ProductDialog categories={categories} />
+                <ProductDialog categories={categories} suppliers={suppliers} />
             </div>
-            <ProductTable data={products} categories={categories} />
+            <ProductTable data={products} categories={categories} suppliers={suppliers} />
         </div>
     )
 }
