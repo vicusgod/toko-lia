@@ -65,7 +65,7 @@ export function CategoryPie({ data }: { data: any[] }) {
                                                 className="h-3 w-3 rounded-full shrink-0"
                                                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
                                             />
-                                            <span className="font-medium text-slate-200">{item.name}</span>
+                                            <span className="font-medium text-foreground">{item.name}</span>
                                         </div>
                                         <div className="flex flex-col items-end text-right">
                                             <span className="font-semibold">
